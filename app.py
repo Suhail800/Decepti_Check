@@ -8,14 +8,25 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import nltk
-# Check if 'punkt' resource is available, and download if it's not
-try:
-    nltk.data.find('tokenizers/punkt')
-except nltk.downloader.DownloadError:
-    nltk.download('punkt')
-except LookupError:
-    # This might happen if 'punkt' is in the index but not downloaded
-    nltk.download('punkt')
+required_nltk_data = ['stopwords', 'wordnet', 'vader_lexicon', 'punkt']
+for data_name in required_nltk_data:
+    try:
+        # Check if the data is found by NLTK's resource finder
+        # These are the standard paths NLTK expects for these specific resources
+        if data_name == 'punkt':
+            nltk.data.find('tokenizers/punkt')
+        elif data_name == 'stopwords':
+            nltk.data.find('corpora/stopwords')
+        elif data_name == 'wordnet':
+            nltk.data.find('corpora/wordnet')
+        elif data_name == 'vader_lexicon':
+            nltk.data.find('sentiment/vader_lexicon')
+        
+        print(f"NLTK resource '{data_name}' already downloaded and found.")
+    except LookupError:
+        print(f"Downloading NLTK resource: {data_name}...")
+        nltk.download(data_name)
+        print(f"Finished downloading {data_name}.")
 
 
 # --- Page Configuration ---
