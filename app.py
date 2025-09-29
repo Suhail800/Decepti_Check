@@ -1,3 +1,37 @@
+import nltk
+import os
+
+# 1. Manually add the download directory to NLTK's search path
+# This is necessary because the downloader saves to one place (/home/appuser/nltk_data)
+# but the tokenizer later searches a different set of paths.
+NLTK_DATA_DIR = "/home/appuser/nltk_data"
+if NLTK_DATA_DIR not in nltk.data.path:
+    nltk.data.path.append(NLTK_DATA_DIR)
+    
+# Create the directory if it doesn't exist (important for NLTK to save the files)
+if not os.path.exists(NLTK_DATA_DIR):
+    os.makedirs(NLTK_DATA_DIR)
+
+# 2. Download the 'punkt' resource (and any others you need)
+# This code ensures they are downloaded to the path we just added.
+try:
+    nltk.data.find('tokenizers/punkt')
+except (LookupError, nltk.downloader.DownloadError):
+    print("NLTK 'punkt' resource not found. Downloading...")
+    nltk.download('punkt')
+    print("NLTK 'punkt' downloaded successfully.")
+
+# You need to do this for all resources used in your app
+# (e.g., VADER, WordNet, Stopwords)
+for resource in ['stopwords', 'wordnet', 'vader_lexicon']:
+    try:
+        nltk.data.find(resource)
+    except (LookupError, nltk.downloader.DownloadError):
+        print(f"NLTK '{resource}' resource not found. Downloading...")
+        nltk.download(resource)
+
+
+
 # app.py
 import streamlit as st
 import pandas as pd
@@ -6,27 +40,6 @@ import torch
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-import nltk
-required_nltk_data = ['stopwords', 'wordnet', 'vader_lexicon', 'punkt']
-for data_name in required_nltk_data:
-    try:
-        # Check if the data is found by NLTK's resource finder
-        # These are the standard paths NLTK expects for these specific resources
-        if data_name == 'punkt':
-            nltk.data.find('tokenizers/punkt')
-        elif data_name == 'stopwords':
-            nltk.data.find('corpora/stopwords')
-        elif data_name == 'wordnet':
-            nltk.data.find('corpora/wordnet')
-        elif data_name == 'vader_lexicon':
-            nltk.data.find('sentiment/vader_lexicon')
-        
-        print(f"NLTK resource '{data_name}' already downloaded and found.")
-    except LookupError:
-        print(f"Downloading NLTK resource: {data_name}...")
-        nltk.download(data_name)
-        print(f"Finished downloading {data_name}.")
 
 
 # --- Page Configuration ---
