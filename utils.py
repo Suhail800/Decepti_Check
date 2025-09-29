@@ -33,7 +33,7 @@ for data_name in required_nltk_data:
         print(f"Downloading NLTK resource: {data_name}...")
         nltk.download(data_name)
         print(f"Finished downloading {data_name}.")
-
+nltk.download('punkt_tab')
 # --- Data Loading and Preprocessing ---
 def load_data(data_path="data/deceptive-opinion-spam-corpus", file_name='deceptive-opinion.csv'):
     """
