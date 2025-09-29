@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import re
 import nltk
-from nltk.sentiment import SentimentIntensityAnalyzer # Typo fix: It should be SentimentIntensityAnalyzer
+from nltk.sentiment import SentimentIntensityAnalyzer
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import textstat
