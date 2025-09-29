@@ -1,0 +1,9 @@
+    [general]
+    # NLTK data downloads are managed inside utils.py, 
+    # but we can ensure they are available here if needed.
+    
+    [server]
+    port = 8501
+    enableCORS = false
+    enableXsrfProtection = false 
+    
