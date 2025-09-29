@@ -16,7 +16,8 @@ if not os.path.exists(NLTK_DATA_DIR):
 # This code ensures they are downloaded to the path we just added.
 try:
     nltk.data.find('tokenizers/punkt')
-except (LookupError, nltk.downloader.DownloadError):
+# CHANGE THIS LINE: Catch a more general exception instead of the specific NLTK one
+except (LookupError, Exception): 
     print("NLTK 'punkt' resource not found. Downloading...")
     nltk.download('punkt')
     print("NLTK 'punkt' downloaded successfully.")
