@@ -7,6 +7,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import nltk
+# Check if 'punkt' resource is available, and download if it's not
+try:
+    nltk.data.find('tokenizers/punkt')
+except nltk.downloader.DownloadError:
+    nltk.download('punkt')
+except LookupError:
+    # This might happen if 'punkt' is in the index but not downloaded
+    nltk.download('punkt')
+
+
 # --- Page Configuration ---
 st.set_page_config(layout="wide", page_title="DeceptiCheck: Deception Detection Engine", page_icon="🕵️‍♂️")
 
